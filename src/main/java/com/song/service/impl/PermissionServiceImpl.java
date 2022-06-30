@@ -6,6 +6,10 @@ import com.song.service.PermissionService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * <p>
@@ -20,4 +24,11 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permission> implements PermissionService {
 
+    @Resource
+    private PermissionMapper permissionMapper;
+
+    @Override
+    public List<Permission> findPermissionListByUserId(Long userId) {
+        return permissionMapper.findPermissionListByUserId(userId);
+    }
 }

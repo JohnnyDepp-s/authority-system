@@ -32,3 +32,10 @@ logging:
     com:
       song:
         dao: debug
+#jwt配置
+#密钥
+jwt:
+  secret: com.manong
+  #过期时间
+  expiration: 1800000
+
