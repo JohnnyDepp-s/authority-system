@@ -1,5 +1,6 @@
 package com.song.config.security;
 
+import com.song.config.security.filter.CheckTokenFilter;
 import com.song.config.security.handler.AnonymousAuthenticationHandler;
 import com.song.config.security.handler.CustomerAccessDeniedHandler;
 import com.song.config.security.handler.LoginFailureHandler;
@@ -13,6 +14,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.annotation.Resource;
 
@@ -33,6 +35,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Resource
     private CustomerAccessDeniedHandler customerAccessDeniedHandler;
 
+    @Resource
+    private CheckTokenFilter checkTokenFilter;
+
 
     /**
      * 注入加密处理类
@@ -44,6 +49,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     }
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        //登录前进行过滤
+        http.addFilterBefore(checkTokenFilter,UsernamePasswordAuthenticationFilter.class);
+
         //登录前进行过滤
         http.formLogin()
                 .loginProcessingUrl("/api/user/login")

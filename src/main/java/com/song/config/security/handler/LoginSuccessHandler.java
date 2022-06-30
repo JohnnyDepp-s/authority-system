@@ -2,6 +2,7 @@ package com.song.config.security.handler;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.song.config.redis.RedisService;
 import com.song.entity.User;
 import com.song.utils.JwtUtils;
 import com.song.utils.LoginResult;
@@ -32,6 +33,10 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
     @Resource
     private JwtUtils jwtUtils;
 
+    @Resource
+    private RedisService redisService;
+
+
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         //设置客户端的响应的内容类型
@@ -55,5 +60,8 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
         outputStream.write(result.getBytes(StandardCharsets.UTF_8));
         outputStream.flush();
         outputStream.close();
+        //把生成的token存到redis
+        String tokenKey = "token_"+token;
+        redisService.set(tokenKey,token,jwtUtils.getExpiration() / 1000);
     }
 }

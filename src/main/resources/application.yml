@@ -21,6 +21,14 @@ spring:
       format:
         date: yyyy-MM-dd
         date-time: yyyy-MM-dd HH:mm:ss
+
+  redis:
+    host: 112.124.3.50 #阿里云
+    port: 6379
+    database: 2
+    timeout: 10000
+    #自定义属性
+    expire: 60000
 #加载映射文件
 mybatis-plus:
   mapper-locations: classpath*:/mapper/**/*.xml
@@ -35,7 +43,13 @@ logging:
 #jwt配置
 #密钥
 jwt:
-  secret: com.manong
+  secret: com.song
   #过期时间
   expiration: 1800000
+
+#登录请求地址(自定义)
+request:
+  login:
+    url: /api/user/login
+
 
