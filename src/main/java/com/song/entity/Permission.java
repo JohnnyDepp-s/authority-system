@@ -14,10 +14,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * <p>
- * 
- * </p>
- *
  * @author song
  * @since 2022-06-29
  */
