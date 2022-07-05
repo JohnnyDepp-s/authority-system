@@ -59,5 +59,14 @@ jwt:
 request:
   login:
     url: /api/user/login
+#阿里云文件上传
+aliyun:
+  oss:
+    endpoint: oss-cn-hangzhou.aliyuncs.com
+    keyid: LTAI5tCViWr7kT1CoP6W7XBk
+    keysecret: j7ZhW6TciJIQpfy7cDkHH3r41tFjTh
+    #bucket可以在控制台创建，也可以使用java代码创建，注意先测试bucket是否已被占用
+    bucketname: song-authority-system
+
 
 
